@@ -10,4 +10,5 @@ def mail(request):
     if not (email and subject and message and from_email):
         return JsonResponse({'status': 'error', 'message': 'Not all parameters passed'})
     a_send_mail.delay(email, subject, message, from_email)
-    return JsonResponse({'status': 'OK', 'message': 'Task created'})
+    return JsonResponse({'status': 'ok', 'message': 'Task created'})
+

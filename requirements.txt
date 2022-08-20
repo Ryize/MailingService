@@ -31,13 +31,16 @@ PyJWT==1.7.1
 pyparsing
 =======
 Django==4.1
+django-filter==22.1
 djangorestframework==3.13.1
+djangorestframework-simplejwt==5.2.0
 flower==1.2.0
 humanize==4.3.0
 kombu==5.2.4
 packaging==21.3
 prometheus-client==0.14.1
 prompt-toolkit==3.0.30
+PyJWT==1.7.1
 pyparsing==3.0.9
 >>>>>>> 77016b7 (Added requirements)
 pytz==2022.1

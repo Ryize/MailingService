@@ -1,13 +1,28 @@
 from django.http import JsonResponse
+from rest_framework import views
+from rest_framework.permissions import IsAuthenticated
+
+from mail.serializers import MailSerializer
 from mail.tasks import a_send_mail
 
 
-def mail(request):
-    email = "request.POST.get('email')"
-    subject = "request.POST.get('subject')"
-    message = "request.POST.get('message')"
-    from_email = "request.POST.get('from_email')"
-    if not (email and subject and message and from_email):
-        return JsonResponse({'status': 'error', 'message': 'Not all parameters passed'})
-    a_send_mail.delay(email, subject, message, from_email)
-    return JsonResponse({'status': 'OK', 'message': 'Task created'})
+class MailView(views.APIView):
+    serializer_class = MailSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = MailSerializer(data=request.data)
+        if not serializer.is_valid():
+            return JsonResponse({'status': 'error', 'message': 'Переданы не все параметры. Или неверные данные.'})
+        a_send_mail.delay(*serializer.data.values())
+        return JsonResponse({'status': 'OK', 'message': 'Task created'})
+
+
+# {
+# 'email': 'cpv9908@gmail.com',
+# 'subject': 'eefjfejfej',
+# 'message': 'jfejfkefkef',
+# 'from_email': ''shtitarenko@gmail.com
+# }
+
+# "{'email': 'cpv9908@gmail.com','subject': 'eefjfejfej','message': 'jfejfkefkef','from_email': 'shtitarenko@gmail.com'}"

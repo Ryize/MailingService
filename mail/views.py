@@ -1,12 +1,13 @@
 from django.http import JsonResponse
 from rest_framework import views
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import GenericAPIView
 
 from mail.serializers import MailSerializer
 from mail.tasks import a_send_mail
 
 
-class MailView(views.APIView):
+class MailView(GenericAPIView):
     serializer_class = MailSerializer
     permission_classes = [IsAuthenticated]
 

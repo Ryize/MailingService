@@ -3,8 +3,8 @@ from rest_framework import views
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import GenericAPIView
 
-from mail.serializers import MailSerializer
-from mail.tasks import a_send_mail
+from mail.serializers import MailSerializer, MassMailSerializer
+from mail.tasks import a_send_mail, a_send_mass_mail
 
 
 class MailView(GenericAPIView):
@@ -16,6 +16,20 @@ class MailView(GenericAPIView):
         if not serializer.is_valid():
             return JsonResponse({'status': 'error', 'message': 'Переданы не все параметры. Или неверные данные.'})
         a_send_mail.delay(*serializer.data.values())
+        return JsonResponse({'status': 'OK', 'message': 'Task created'})
+
+
+class MassMailView(GenericAPIView):
+    serializer_class = MassMailSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = MassMailSerializer(data=request.data)
+        serializer.is_valid()
+        print(serializer.errors)
+        if not serializer.is_valid():
+            return JsonResponse({'status': 'error', 'message': 'Переданы не все параметры. Или неверные данные.'})
+        a_send_mass_mail.delay(*serializer.data.values())
         return JsonResponse({'status': 'OK', 'message': 'Task created'})
 
 

@@ -11,7 +11,7 @@ def a_send_mail(self, *args, **kwargs):
         raise self.retry()
 
 
-@app.task(bind=True, default_retry_delay=120, max_retries=10)
+@app.task(bind=True, default_retry_delay=300, max_retries=5)
 def a_send_mass_mail(self, *args, **kwargs):
     result = send_mass_email(*args, **kwargs)
     if result['status'] == 'error':

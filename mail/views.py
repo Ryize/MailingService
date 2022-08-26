@@ -16,7 +16,7 @@ class MailView(GenericAPIView):
         if not serializer.is_valid():
             return JsonResponse({'status': 'error', 'message': 'Переданы не все параметры. Или неверные данные.'})
         a_send_mail.delay(*serializer.data.values())
-        return JsonResponse({'status': 'OK', 'message': 'Task created'})
+        return JsonResponse({'status': 'OK', 'message': 'Task mail created'})
 
 
 class MassMailView(GenericAPIView):
@@ -30,7 +30,7 @@ class MassMailView(GenericAPIView):
         if not serializer.is_valid():
             return JsonResponse({'status': 'error', 'message': 'Переданы не все параметры. Или неверные данные.'})
         a_send_mass_mail.delay(*serializer.data.values())
-        return JsonResponse({'status': 'OK', 'message': 'Task created'})
+        return JsonResponse({'status': 'OK', 'message': 'Task mass mail created'})
 
 
 # {

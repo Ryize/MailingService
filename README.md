@@ -1,25 +1,25 @@
 # MailingService
-Service for sending letters or creating mass mailings. Uses Celery+Redis
+Сервис для отправки писем или создания массовых рассылок. Использует Celery+Redis
 
 ## Deploy locally:
 
-Clone the repository and go to installed folder:
+Клонируйте репозиторий и перейдите в установленную папку:
 ```
 git clone https://github.com/Ryize/MailingService.git
 cd MailingService
 ```
 
-Install requirements:
+Установите requirements:
 ```
 pip3 install -r requirements.txt
 ```
-> If you are deploying a project to a server or hosting with a domain, then specify it in the project settings in the ALLOWED_HOSTS(DjangoBlog.settings) variable
+> Если вы развертываете проект на сервере или хостинге с доменом, то укажите это в настройках проекта в переменной ALLOWED_HOSTS (DjangoBlog.settings)
 ```
 ALLOWED_HOSTS = ['127.0.0.1']
 ```
 
 
-Download and run Celery and Redis. Check the settings in MailingService.settings
+Установите и запустите Celery и Redis. Проверьте настройки в MailingService.settings
 ```
 REDIS_HOST = '0.0.0.0'
 REDIS_PORT = '6379'
@@ -31,23 +31,23 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 ```
 
-Login to mail with django
+Войдите в почту с помощью django
 https://pocoz.gitbooks.io/django-v-primerah/content/glava-2-uluchshenie-bloga-s-pomoshyu-rasshirennyh-vozmozhnostej/otpravka-postov-na-e-mail/otpravka-e-mail-v-django.html
 
-> If the DEBUG mode is disabled(False), the site will stop automatically collecting statics and media, do not forget to configure Nginx/Apache
+> Если режим DEBUG отключен (False), сайт перестанет автоматически собирать статику и медиа, не забудьте настроить Nginx/Apache
 ```
 DEBUG = True
 ```
 
-Collect statics and run migrations:
+Соберите статику и запустите миграции:
 ```
 python3 manage.py collectstatic
 python3 manage.py migrate
 ```
 
-Run the website:
+Запустите проект:
 ```
 python3 manage.py runserver
 ```
 
-> Technologies used in the project: Python 3, Django, Celery, Redis.
+> Технологии, использованные в проекте: Python 3, Django, Celery, Redis.

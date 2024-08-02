@@ -3,7 +3,7 @@
 
 ## Deploy locally:
 
-Клонируйте репозиторий и перейдите в установленную папку:
+Клонируйте репозиторий и перейдите в установленную директорию:
 ```
 git clone https://github.com/Ryize/MailingService.git
 cd MailingService
